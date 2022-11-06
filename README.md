@@ -10,6 +10,7 @@ This project was made by Bárbara Zanetti, Diogo Cruz and Rendson Fernandes
 [uml](https://lucid.app/lucidchart/48aa113e-50a4-4fdc-8b27-3902b3a72421/edit?viewport_loc=-141%2C-396%2C1880%2C1034%2C0_0&invitationId=inv_e575e21d-d189-4e1e-bc62-f36aba3fce48
 )
 
+![UML Chart](/Users/barbarasilva/Downloads/Blank Diagram-2.png)
 ![alt text](https://drive.google.com/file/d/1LTED-SxJZh7cBmfGktx9fplCUxOcrAFd/view?usp=share_link)
 
 ## ER
