@@ -1,10 +1,3 @@
-#create database and tables races.sql
-
-"""
-https://dbm.fe.up.pt/phppgadmin/
-User: fced_diogo_cruz
-Pass: fced_diogo_cruz
-"""
 CREATE DATABASE races
 
 GO
@@ -18,50 +11,35 @@ CREATE TABLE athlete (
 );
 
 CREATE TABLE runner (
-        bib varchar PRIMARY KEY,
-        --id_event integer,
-        id_event INTEGER REFERENCES events(id_event)
-        --id_athlete integer,
-        id_athlete INTEGER REFERENCES athlete(id_athlete)
-        age_class varchar,
-        --id_runner integer
-        id_runner INTEGER REFERENCES runner_teams(id_runner)
+        id_runner INTEGER PRIMARY KEY
+        bib varchar ,
+        id_event INTEGER REFERENCES events(id_event),
+        id_athlete INTEGER REFERENCES athlete(id_athlete),
+        age_class varchar
 );
 
 CREATE TABLE events (
         id_event integer PRIMARY KEY,
         event varchar ,
-        event_year varchar REFERENCES model,
-        distance float REFERENCES model
+        event_year varchar,
+        distance varchar
 );
 
---id_event INTEGER REFERENCES events(id_event)
---FOREIGN KEY (id_event, athlete_id) REFERENCES events (id_event, id_runner)
---FOREIGN KEY (id_event, athlete_id) REFERENCES events
---PRIMARY KEY (id_event, id_runner)
-
 CREATE TABLE event_ranking (
-        --id_event integer PRIMARY KEY,
-        id_event INTEGER REFERENCES events(id_event)
-        --athlete_id/bib integer,
-        id_athlete INTEGER REFERENCES athlete(id_athlete)
+        FOREIGN KEY id_event REFERENCES events,
         place varchar ,
         place_in_class varchar ,
         official_time TIMESTAMP , --timedelta64[ns]
-        net_time TIMESTAMP , --timedelta64[ns] TIMESTAMP/TIME
-        --id_runner integer 
-        id_runner INTEGER REFERENCES runner_teams(id_runner)
+        net_time TIMESTAMP , --timedelta64[ns] 
+        FOREIGN KEY id_runner REFERENCES runner
 );
 
 CREATE TABLE runner_teams (
-        id_team integer PRIMARY KEY,
-        id_runner integer
-        --id_team INTEGER REFERENCES teams(id_runner)
-        --id_runner INTEGER REFERENCES runner(id_team)
+        FOREIGN KEY id_team REFERENCES teams,
+        FOREIGN KEY id_runner REFERENCES runner
 );
 
 CREATE TABLE teams (
         id_team integer PRIMARY KEY,
         team varchar UNIQUE
 );
-
