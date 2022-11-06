@@ -11,6 +11,8 @@ We worked togheter almost the entire time, but some parts of the work were done 
 
 Regarding the UML and the questions, we did it togheter. The first one to better understand the model, since it was the center of the work. And, the second one to optimize the data and the time to build one the query,
 
+![alt text](https://i.ibb.co/f0S8SGx/Captura-de-ecra-2022-11-06-a-s-13-44-30.png)
+
 Files:
 - At the UML.png we divided the dataset to have the less amount of repeated informationas possible. Due to the amount of repeated data, we dicided to create sequential keys to almost every table (only excpetions are runner_teams and ranking_event). 
 - We also created a RelationalModel.txt, that, as the nome says, it is found our relational model.
