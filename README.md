@@ -17,7 +17,10 @@ Files:
 - In the races.sql we create the tables, set the types of each field and created the foreing and primary keys.
 - We buil the load_races.py to load the information in the tables. In this file we also analyse some inconsistences, divide the dataset (creating dataframes to each table) and populate the data (after cleaning the tables in case that has some residual information). The table was populated in the fcde_barbara_silva.
 - We created a question.sql to answer some questions regarding the dataset.
-- We also create a file() to do the User Interface.
+- We also create a folder named races to be the User Interface:
+  - To execute the UI you must run the MakeRun, it will gide you to the races.py file.
+  - Check if the requirements are installed as listed in the requirements folder.
+  - And enjoy your experience :)
 
 
 ## Repository
