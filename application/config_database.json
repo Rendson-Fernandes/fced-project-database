@@ -1,0 +1,7 @@
+{
+    "name": "project",
+    "user": "admin",
+    "password": "admin",
+    "host": "localhost",
+    "port": "5432"
+}
