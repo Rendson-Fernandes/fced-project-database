@@ -1,47 +1,74 @@
-CREATE DATABASE races
+-- CREATE DATABASE races
 
-GO
+-- GO
 
-CREATE TABLE athlete (
-  id_athlete integer PRIMARY KEY,
-  name varchar NOT NULL,
-  sex varchar NOT NULL,
-  nation varchar NOT NULL,
-  birth_date DATE NOT NULL --datetime64[ns]
-);
+BEGIN;
 
-CREATE TABLE runner (
-        id_runner INTEGER PRIMARY KEY
-        bib varchar ,
-        id_event INTEGER REFERENCES events(id_event),
-        id_athlete INTEGER REFERENCES athlete(id_athlete),
-        age_class varchar
-);
+        SET client_encoding = 'LATIN1';
 
-CREATE TABLE events (
-        id_event integer PRIMARY KEY,
-        event varchar NOT NULL,
-        event_year varchar NOT NULL,
-        distance varchar NOT NULL
-);
+        CREATE TABLE athlete (
+        id_athlete integer PRIMARY KEY,
+        name varchar NOT NULL,
+        sex varchar NOT NULL,
+        nation varchar NOT NULL,
+        birth_date DATE NOT NULL
+        );
 
-CREATE TABLE event_ranking (
-        --id_event integer REFERENCES events ON DELETE CASCADE --(Good option)
-        FOREIGN KEY id_event REFERENCES events
-        place integer NOT NULL,
-        place_in_class integer NOT NULL,
-        official_time TIME NOT NULL, --timedelta64[ns]
-        net_time TIME , --timedelta64[ns] TIMESTAMP/TIME
-        FOREIGN KEY id_runner REFERENCES runner
-);
+        CREATE TABLE events (
+                id_event integer PRIMARY KEY,
+                event varchar NOT NULL,
+                event_year varchar NOT NULL,
+                distance varchar NOT NULL
+        );
 
-CREATE TABLE runner_teams (
+        CREATE TABLE runner (
+                id_runner integer PRIMARY KEY,
+                id_event integer,
+                id_athlete integer,
+                bib varchar,
+                age_class varchar, 
+                CONSTRAINT fk_id_event
+                        FOREIGN KEY(id_event) 
+                                REFERENCES events(id_event), 
+                CONSTRAINT fk_id_athlete
+                        FOREIGN KEY(id_athlete) 
+                                REFERENCES athlete(id_athlete)
+        );
 
-        FOREIGN KEY id_team REFERENCES teams,
-        FOREIGN KEY id_runner REFERENCES runner
-);
+        CREATE TABLE event_ranking (
+                id_event integer,
+                id_runner integer,
+                place integer NOT NULL,
+                place_in_class integer NOT NULL,
+                official_time TIME NOT NULL, --timedelta64[ns]
+                net_time TIME , --timedelta64[ns] TIMESTAMP/TIME
+                CONSTRAINT pk_event_runner 
+                        PRIMARY KEY (id_event, id_runner),
+                CONSTRAINT fk_id_event
+                        FOREIGN KEY(id_event) 
+                                REFERENCES events(id_event),
+                CONSTRAINT fk_id_runner
+                        FOREIGN KEY(id_runner) 
+                                REFERENCES runner(id_runner)
+        );
 
-CREATE TABLE teams (
-        id_team integer PRIMARY KEY,
-        team varchar NOT NULL
-);
+        CREATE TABLE teams (
+                id_team integer PRIMARY KEY,
+                team varchar NOT NULL UNIQUE
+        );
+
+        CREATE TABLE runner_teams (
+                id_runner integer,
+                id_team integer,
+                CONSTRAINT pk_runner_teams 
+                        PRIMARY KEY (id_runner, id_team),
+                CONSTRAINT fk_id_runner
+                        FOREIGN KEY(id_runner) 
+                                REFERENCES runner(id_runner),
+                CONSTRAINT fk_id_team
+                        FOREIGN KEY(id_team) 
+                                REFERENCES teams(id_team)
+        );
+COMMIT;
+
+

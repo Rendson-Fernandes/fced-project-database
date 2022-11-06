@@ -3,7 +3,10 @@ setup: requirements.txt
 
 start-database:
 	docker build -t postgres-db ./postgres/
-	docker run -d --name my-postgresdb-container -p 5432:5432 postgres-db
+	docker run -d --name postgres-db -p 5432:5432 postgres-db
 
 end-database:
-	docker stop $(docker ps -q --filter ancestor=postgres-db )
+	docker container stop $(shell docker ps -aq)
+	docker container rm $(shell docker ps -aq)
+	#docker container stop $(shell docker ps -q --filter ancestor=postgres-db )
+	# docker rm $$(docker ps -q --filter ancestor=postgres-db )
