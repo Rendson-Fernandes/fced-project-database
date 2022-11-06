@@ -1,46 +1,63 @@
+#create database and tables races.sql
+
+"""
+https://dbm.fe.up.pt/phppgadmin/
+User: fced_diogo_cruz
+Pass: fced_diogo_cruz
+"""
 CREATE DATABASE races
 
 GO
 
 CREATE TABLE athlete (
   id_athlete integer PRIMARY KEY,
-  name varchar,
-  sex varchar,
-  nation varchar,
-  birth_date varchar
+  name varchar NOT NULL,
+  sex varchar NOT NULL,
+  nation varchar NOT NULL,
+  birth_date DATE NOT NULL --datetime64[ns]
 );
 
 CREATE TABLE runner (
-        bib integer PRIMARY KEY,
-        id_event varchar,
-        id_athlete varchar,
-        age_class integer,
-        id_runner integer
+        bib varchar PRIMARY KEY,
+        --id_event integer,
+        id_event INTEGER REFERENCES events(id_event)
+        --id_athlete integer,
+        id_athlete INTEGER REFERENCES athlete(id_athlete)
+        age_class varchar,
+        --id_runner integer
+        id_runner INTEGER REFERENCES runner_teams(id_runner)
 );
 
 CREATE TABLE events (
         id_event integer PRIMARY KEY,
-        event character varying(30),
-        event_year integer REFERENCES model,
-        distance integer REFERENCES model
+        event varchar varying(30),
+        event_year varchar REFERENCES model,
+        distance float REFERENCES model
 );
+
+--id_event INTEGER REFERENCES events(id_event)
+--FOREIGN KEY (id_event, athlete_id) REFERENCES events (id_event, id_runner)
+--FOREIGN KEY (id_event, athlete_id) REFERENCES events
+--PRIMARY KEY (id_event, id_runner)
 
 CREATE TABLE event_ranking (
         id_event integer PRIMARY KEY,
-        bib character varying(30),
-        place integer REFERENCES model,
-        place_in_class integer REFERENCES model,
-        official_time integer REFERENCES model,
-        net_time integer REFERENCES model,
+        athlete_id/bib integer varying(30),
+        place varchar REFERENCES model,
+        place_in_class varchar REFERENCES model,
+        official_time TIMESTAMP REFERENCES model, --timedelta64[ns]
+        net_time TIMESTAMP REFERENCES model, --timedelta64[ns] TIMESTAMP/TIME
         id_runner integer REFERENCES model
 );
 
 CREATE TABLE runner_teams (
         id_team integer PRIMARY KEY,
-        id_runner character varying(30)
+        id_runner integer varying
+        --id_team INTEGER REFERENCES teams(id_runner)
+        --id_runner INTEGER REFERENCES runner(id_team)
 );
 
 CREATE TABLE teams (
         id_team integer PRIMARY KEY,
-        team character varying(30)
+        team varchar UNIQUE
 );
