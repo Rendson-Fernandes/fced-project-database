@@ -149,29 +149,31 @@ CREATE TABLE runner (
 
 CREATE TABLE events (
         id_event integer PRIMARY KEY,
-        event varchar ,
-        event_year varchar,
-        distance varchar
+        event varchar NOT NULL,
+        event_year varchar NOT NULL,
+        distance varchar NOT NULL
 );
 
 CREATE TABLE event_ranking (
-        FOREIGN KEY id_event REFERENCES events,
-        place varchar ,
-        place_in_class varchar ,
-        official_time TIMESTAMP , --timedelta64[ns]
-        net_time TIMESTAMP , --timedelta64[ns] 
+        --id_event integer REFERENCES events ON DELETE CASCADE --(Good option)
+        FOREIGN KEY id_event REFERENCES events
+        place integer NOT NULL,
+        place_in_class integer NOT NULL,
+        official_time TIME NOT NULL, --timedelta64[ns]
+        net_time TIME , --timedelta64[ns] TIMESTAMP/TIME
         FOREIGN KEY id_runner REFERENCES runner
 );
 
 CREATE TABLE runner_teams (
+
         FOREIGN KEY id_team REFERENCES teams,
         FOREIGN KEY id_runner REFERENCES runner
 );
 
 CREATE TABLE teams (
         id_team integer PRIMARY KEY,
-        team varchar UNIQUE
-); 
+        team varchar NOT NULL
+);
 ```
 
 
