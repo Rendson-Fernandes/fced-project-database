@@ -40,8 +40,8 @@ BEGIN;
                 id_runner integer,
                 place integer NOT NULL,
                 place_in_class integer NOT NULL,
-                official_time TIME NOT NULL, --timedelta64[ns]
-                net_time TIME , --timedelta64[ns] TIMESTAMP/TIME
+                official_time TIME NOT NULL,
+                net_time TIME ,
                 CONSTRAINT pk_event_runner 
                         PRIMARY KEY (id_event, id_runner),
                 CONSTRAINT fk_id_event

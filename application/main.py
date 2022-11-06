@@ -4,22 +4,22 @@ from operation import BaseOperations
 class Search():
     def __init__(self):
         self.operation = BaseOperations()
-        self.search_layout = "select * from {} where {} = '{}'"
+        self.search_layout = "select {columns} from {table} where {filter} = '{item}'"
         self.msg = "\n What {} do you want to search: "
     
     def runner(self):
         input_opt = input(self.msg.format("runner"))
-        sql = self.search_layout.format("city", "name", input_opt)
+        sql = self.search_layout.format(table="runner", filter="bib", item=input_opt)
         self.execute(sql)
 
     def event(self):
         input_opt = input(self.msg.format("Event"))
-        sql = self.search_layout.format("city", "name", input_opt)
+        sql = self.search_layout.format(table="events", filter="event", item=input_opt)
         self.execute(sql)
 
     def team(self):
         input_opt = input(self.msg.format("Team"))
-        sql = self.search_layout.format("city", "name", input_opt)
+        sql = self.search_layout.format(table="teams", filter="team", item=input_opt)
         self.execute(sql)
 
     def execute(self, sql):
