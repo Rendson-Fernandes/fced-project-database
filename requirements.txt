@@ -1,0 +1,8 @@
+poetry
+postgres
+pandas
+datetime
+typing
+pydantic
+psycopg2
+pydantic
