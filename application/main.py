@@ -1,5 +1,6 @@
 from operation import BaseOperations
 from model import TeamModel
+import sql_features
 
 class Search():
     def __init__(self):
@@ -9,15 +10,8 @@ class Search():
     
     def runner(self):
         input_opt = input(self.msg.format("runner"))
-        sql = ( "select birth_date, age_class, bib, event, place, net_time  "
-                "from athlete "
-                "join runner on athlete.id_athlete = runner.id_athlete "
-                "join events on events.id_event = runner.id_event "
-                "join event_ranking on event_ranking.id_runner = runner.id_runner "
-                f"where athlete.name = '{input_opt}'" 
-                "order by birth_date"
-                )
-        result = self.execute(sql)
+        query = sql_features.query_athlete.replace("$search", input_opt)
+        result = self.execute(query)
         if result.rowcount > 0:
             print(f"\n\nHere are the races where {input_opt} has run:")
             print("=" * 100)
@@ -35,13 +29,8 @@ class Search():
 
     def event(self):
         input_opt = input(self.msg.format("Event"))
-        sql = ( "select event_year, distance, count(distinct event_ranking.id_runner) as total_runner "
-                "from events "
-                "join event_ranking on event_ranking.id_event = events.id_event "
-                f"where events.event = '{input_opt}' " 
-                "group by event_year, distance "
-                "order by event_year")
-        result = self.execute(sql)
+        query = sql_features.query_event.replace("$search", input_opt)
+        result = self.execute(query)
         if result.rowcount > 0:
             print(f"\n\nHere are the informations about {input_opt}:")
             print("=" * 100)
@@ -56,19 +45,8 @@ class Search():
 
     def team(self):
         input_opt = input(self.msg.format("Event"))
-        sql = ( "select team, event, event_year, name, place "
-                "from teams "
-                "join runner_teams on teams.id_team = runner_teams.id_team "
-                "join runner on runner.id_runner = runner_teams.id_runner "
-                "join events on events.id_event = runner.id_event "
-                "join athlete on athlete.id_athlete = runner.id_athlete "
-                "join event_ranking on event_ranking.id_event = events.id_event "
-                "and runner.id_runner = event_ranking.id_runner "
-                f"where team = '{input_opt}' "
-                "group by team, event, event_year, name, place "
-                "order by team, event, name, place"
-            )
-        result = self.execute(sql)
+        query = sql_features.query_team.replace("$search", input_opt)
+        result = self.execute(query)
         if result.rowcount > 0:
             print(f"\n\nHere are the informations about Team {input_opt}:")
             print("=" * 100)

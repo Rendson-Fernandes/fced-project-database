@@ -7,3 +7,9 @@ class ConfigDatabase(BaseModel):
     password: str
     host: str
     port: int
+
+class TeamModel(BaseModel):
+    event_year: str 
+    event: str
+    name: str
+    place: int
