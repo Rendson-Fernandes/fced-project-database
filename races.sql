@@ -30,7 +30,7 @@ CREATE TABLE runner (
 
 CREATE TABLE events (
         id_event integer PRIMARY KEY,
-        event varchar varying(30),
+        event varchar ,
         event_year varchar REFERENCES model,
         distance float REFERENCES model
 );
@@ -41,18 +41,21 @@ CREATE TABLE events (
 --PRIMARY KEY (id_event, id_runner)
 
 CREATE TABLE event_ranking (
-        id_event integer PRIMARY KEY,
-        athlete_id/bib integer varying(30),
-        place varchar REFERENCES model,
-        place_in_class varchar REFERENCES model,
-        official_time TIMESTAMP REFERENCES model, --timedelta64[ns]
-        net_time TIMESTAMP REFERENCES model, --timedelta64[ns] TIMESTAMP/TIME
-        id_runner integer REFERENCES model
+        --id_event integer PRIMARY KEY,
+        id_event INTEGER REFERENCES events(id_event)
+        --athlete_id/bib integer,
+        id_athlete INTEGER REFERENCES athlete(id_athlete)
+        place varchar ,
+        place_in_class varchar ,
+        official_time TIMESTAMP , --timedelta64[ns]
+        net_time TIMESTAMP , --timedelta64[ns] TIMESTAMP/TIME
+        --id_runner integer 
+        id_runner INTEGER REFERENCES runner_teams(id_runner)
 );
 
 CREATE TABLE runner_teams (
         id_team integer PRIMARY KEY,
-        id_runner integer varying
+        id_runner integer
         --id_team INTEGER REFERENCES teams(id_runner)
         --id_runner INTEGER REFERENCES runner(id_team)
 );
@@ -61,3 +64,4 @@ CREATE TABLE teams (
         id_team integer PRIMARY KEY,
         team varchar UNIQUE
 );
+
