@@ -1,12 +1,13 @@
 --a) Who run the fastest 10K race ever (name, birthdate, time)?
 
-select a.name, a.birth_date as birthdate, rank.time
-from event as e
+select a.name, a.birth_date as birthdate, rank.net_time as time
+from events as e
 join event_ranking as rank on rank.id_event = e.id_event
 join runner as r on r.id_event = e.id_event
-join athelete as a on a.id_athlete = e.id_athlete
-where e.distance >= 10
-order by rank.time desc
+join athlete as a on a.id_athlete = e.id_athlete
+where cast(e.distance as int) = 10
+order by time desc
+
 
 
 --b) What 10K race had the fastest average time (event, event date)?
@@ -16,7 +17,7 @@ from event as e
 join event_ranking as rank on rank.id_event = e.id_event
 where e.distance = 10
 group by e.event
-order by average(rank.time) desc
+order by avarage(rank.time) desc
 
 --c) What teams had more than 3 participants in the 2016 maratona (team)?
 
