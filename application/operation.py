@@ -3,6 +3,7 @@ from sqlalchemy import engine, create_engine
 from model import ConfigDatabase
 
 class BaseOperations:
+    
     def search(self, sql: str) -> engine.Result:
         try:
             conn = self.connection()
