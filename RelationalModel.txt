@@ -1,0 +1,13 @@
+## Modelo Relacional
+
+athlete (id_athlete [UK, NN], name [NN], sex [NN], nation [NN], birth_date [NN])
+
+runner (id_runner[UK, NN], id_event [UK, NN]-> Events, bib [NN], id_athlete [UK, NN]-> Athlete, age_class [NN])
+
+events (id_event [UK, NN], event [NN], event_year [NN], distance [NN])
+
+event_ranking (id_event [UK, NN] -> Events, id_runner [UK, NN]-> Runner, place [NN], place_in_class [NN], official_time [NN], net_time [NN]) 
+
+runner_teams (id_team [UK, NN] ->  Teams, id_runner [UK, NN]-> Runner)
+
+teams (id_team [UK, NN], team [UK, NN])
